@@ -19,6 +19,7 @@ function listItems(ordersArray) {
   for (var i = 0; i < ordersArray.length; i++) {
     listArray.push(ordersArray[i].item)
   }
+  //.join() converts to a new string & concatenates array contents, separating  each element with whatever is within the parentheses (defaults to commas, must manually add space)
   return listArray.join(", ")
 }
 
