@@ -206,13 +206,22 @@ describe("restaurant.js", function() {
     it("should only remove a menu item if it is on the menu", function() {
       var arepaRestaurant = createRestaurant("Quiero Arepas");
 
-      // for testing attempted solution with menu.length !== 0
-      // var bbqPizza = {
-      //   name: "BBQ Chicken Pizza",
-      //   price: "12.49",
-      //   type: "lunch"
-      // };
-      // addMenuItem(arepaRestaurant, bbqPizza);
+      // Testing I added for solution with menu.length !== 0
+      var baconEggsPizza = {
+        name: "Bacon and Eggs Pizza",
+        price: "13.49",
+        type: "breakfast"
+      };
+
+      var bbqPizza = {
+        name: "BBQ Chicken Pizza",
+        price: "12.49",
+        type: "lunch"
+      };
+
+      addMenuItem(arepaRestaurant, baconEggsPizza);
+      addMenuItem(arepaRestaurant, bbqPizza);
+
 
       var error1 = removeMenuItem(arepaRestaurant, "Mom's Spaghetti", "lunch");
       var error2 = removeMenuItem(arepaRestaurant, "Funfetti Cake", "breakfast");

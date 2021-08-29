@@ -37,56 +37,8 @@ function addMenuItem(restaurant, menuItem) {
 }
 
 
-function removeMenuItem(restaurant, itemToRemove, menuType) {
-// Again, NOT DRY. But we have not learned 'for...in' loops so that felt like cheating.
-// The below only works because the arepaRestaurant menus were empty. The 'if length === 0' was a last resort to pass- which is an example of survivorship bias and not good practice generally. I could not figure out how to work with an empty array/compare undefined values.
-  var removeMessage = `No one is eating our ${itemToRemove} - it has been removed from the ${menuType} menu!`
-  var errorMessage = `Sorry, we don't sell ${itemToRemove}, try adding a new recipe!`
-
-  if (menuType === "breakfast") {
-
-    if (restaurant.menus.breakfast.length === 0) {
-      return errorMessage
-    } else {
-      for (var i = 0; i < restaurant.menus.breakfast.length; i++) {
-        if (restaurant.menus.breakfast[i].name === itemToRemove) {
-          restaurant.menus.breakfast.splice(i, 1)
-          return removeMessage
-        }
-      }
-    }
-
-  } else if (menuType === "lunch") {
-
-    if (restaurant.menus.lunch.length === 0) {
-      return errorMessage
-    } else {
-      for (var i = 0; i < restaurant.menus.lunch.length; i++) {
-        if (restaurant.menus.lunch[i].name === itemToRemove) {
-          restaurant.menus.lunch.splice(i, 1)
-          return removeMessage
-        }
-      }
-    }
-
-  } else {
-
-    if (restaurant.menus.dinner.length === 0) {
-      return errorMessage
-    } else {
-      for (var i = 0; restaurant.menus.dinner.length; i++) {
-        if (restaurant.menus.dinner[i].name === itemToRemove) {
-          restaurant.menus.dinner.splice(i, 1)
-          return removeMessage
-        }
-      }
-    }
-
-  }
-
-}
-
-// One of many attempts to make it work with a menu.length > 0
+// // Solution #1. Again, NOT DRY. But we have not learned 'for...in' loops so that felt like cheating.
+// // The below only works because the arepaRestaurant menus were empty. The 'if length === 0' was a last resort to pass- an example of survivorship bias, not good practice generally. I could not figure out how to work with an empty array in terms of comparing undefined values.
 
 // function removeMenuItem(restaurant, itemToRemove, menuType) {
 //   var removeMessage = `No one is eating our ${itemToRemove} - it has been removed from the ${menuType} menu!`
@@ -94,40 +46,89 @@ function removeMenuItem(restaurant, itemToRemove, menuType) {
 //
 //   if (menuType === "breakfast") {
 //
-//     for (var i = 0; i < restaurant.menus.breakfast.length; i++) {
-//       if (restaurant.menus.breakfast[i].name !== itemToRemove || restaurant.menus.breakfast.length === 0) {
-//         return errorMessage
-//       } else if (restaurant.menus.breakfast[i].name === itemToRemove) {
-//         restaurant.menus.breakfast.splice(i, 1)
-//         return removeMessage
+//     if (restaurant.menus.breakfast.length === 0) {
+//       return errorMessage
+//     } else {
+//       for (var i = 0; i < restaurant.menus.breakfast.length; i++) {
+//         if (restaurant.menus.breakfast[i].name === itemToRemove) {
+//           restaurant.menus.breakfast.splice(i, 1)
+//           return removeMessage
+//         }
 //       }
 //     }
 //
 //   } else if (menuType === "lunch") {
 //
-//     for (var i = 0; i < restaurant.menus.lunch.length; i++) {
-//       if (restaurant.menus.lunch[i].name !== itemToRemove || restaurant.menus.lunch.length === 0) {
-//         return errorMessage
-//       } else if (restaurant.menus.lunch[i].name === itemToRemove) {
-//         restaurant.menus.lunch.splice(i, 1)
-//         return removeMessage
+//     if (restaurant.menus.lunch.length === 0) {
+//       return errorMessage
+//     } else {
+//       for (var i = 0; i < restaurant.menus.lunch.length; i++) {
+//         if (restaurant.menus.lunch[i].name === itemToRemove) {
+//           restaurant.menus.lunch.splice(i, 1)
+//           return removeMessage
+//         }
 //       }
 //     }
 //
 //   } else {
 //
-//     for (var i = 0; restaurant.menus.dinner.length; i++) {
-//       if (restaurant.menus.dinner[i].name !== itemToRemove || restaurant.menus.dinner.length === 0) {
-//         return errorMessage
-//       } else if (restaurant.menus.dinner[i].name === itemToRemove) {
-//         restaurant.menus.dinner.splice(i, 1)
-//         return removeMessage
+//     if (restaurant.menus.dinner.length === 0) {
+//       return errorMessage
+//     } else {
+//       for (var i = 0; restaurant.menus.dinner.length; i++) {
+//         if (restaurant.menus.dinner[i].name === itemToRemove) {
+//           restaurant.menus.dinner.splice(i, 1)
+//           return removeMessage
+//         }
 //       }
 //     }
 //
 //   }
 //
 // }
+
+// Solution #2. One of many attempts to make it work with a menu.length > 0. I added content to the test that would work with menus.name !== itemToRemove. However, I am not sure I comprehend working with '||' because now the below does not work when menu.length === 0...
+
+function removeMenuItem(restaurant, itemToRemove, menuType) {
+  var removeMessage = `No one is eating our ${itemToRemove} - it has been removed from the ${menuType} menu!`
+  var errorMessage = `Sorry, we don't sell ${itemToRemove}, try adding a new recipe!`
+
+  if (menuType === "breakfast") {
+
+    for (var i = 0; i < restaurant.menus.breakfast.length; i++) {
+      if (restaurant.menus.breakfast[i].name !== itemToRemove || restaurant.menus.breakfast.length === 0) {
+        return errorMessage
+      } else if (restaurant.menus.breakfast[i].name === itemToRemove) {
+        restaurant.menus.breakfast.splice(i, 1)
+        return removeMessage
+      }
+    }
+
+  } else if (menuType === "lunch") {
+
+    for (var i = 0; i < restaurant.menus.lunch.length; i++) {
+      if (restaurant.menus.lunch[i].name !== itemToRemove || restaurant.menus.lunch.length === 0) {
+        return errorMessage
+      } else if (restaurant.menus.lunch[i].name === itemToRemove) {
+        restaurant.menus.lunch.splice(i, 1)
+        return removeMessage
+      }
+    }
+
+  } else {
+
+    for (var i = 0; restaurant.menus.dinner.length; i++) {
+      if (restaurant.menus.dinner[i].name !== itemToRemove || restaurant.menus.dinner.length === 0) {
+        return errorMessage
+      } else if (restaurant.menus.dinner[i].name === itemToRemove) {
+        restaurant.menus.dinner.splice(i, 1)
+        return removeMessage
+      }
+    }
+
+  }
+
+}
 
 
 module.exports = {
