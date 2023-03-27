@@ -14,14 +14,11 @@ class Chef {
 
   checkForFood(item) {
     // Another solution that only works if 'length === 0'. Struggling with working empty arrays.
-    if (this.restaurant.menus.breakfast.length === 0) {
-      return `Sorry, we aren't serving ${item.name} today.`
+    var itemType = item.type;
+    if (this.restaurant.menus[itemType].includes(item)) {
+      return `Yes, we're serving ${item.name} today!`
     } else {
-      for (var i = 0; i < this.restaurant.menus.breakfast.length; i++) {
-        if (this.restaurant.menus.breakfast[i].name === item.name) {
-          return `Yes, we're serving ${item.name} today!`
-        }
-      }
+      return `Sorry, we aren't serving ${item.name} today.`
     }
   }
 }
